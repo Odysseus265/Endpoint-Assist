@@ -1,0 +1,44 @@
+# Endpoint Assist - Docker Compose Configuration
+# Professional IT Help Desk Dashboard
+
+version: '3.8'
+
+services:
+  endpoint-assist:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: endpoint-assist
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_ENV=production
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-in-production}
+    volumes:
+      # Persist the SQLite database
+      - endpoint-data:/app/data
+      # Mount logs directory
+      - endpoint-logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5001/')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  endpoint-data:
+    driver: local
+  endpoint-logs:
+    driver: local
+
+# Optional: Add networks for multi-container setups
+networks:
+  default:
+    name: endpoint-network

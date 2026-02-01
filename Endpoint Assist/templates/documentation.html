@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentation for Endpoint Assist - Professional IT Help Desk Tool">
+    <meta name="theme-color" content="#d00000">
+    <title>Documentation - Endpoint Assist</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23d00000'/><text x='50' y='65' text-anchor='middle' font-size='50' fill='white'>⛨</text></svg>">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .docs-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem;
+        }
+        
+        .docs-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .docs-logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(208, 0, 0, 0.3);
+        }
+        
+        .docs-logo i {
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .docs-header h1 {
+            font-size: 2.75rem;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+        
+        .docs-header .version-badge {
+            display: inline-block;
+            padding: 0.3rem 0.75rem;
+            background: var(--success-bg);
+            color: var(--success);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+        
+        .docs-header p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-weight: 500;
+            transition: var(--transition-fast);
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--border-color);
+        }
+        
+        .back-link:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .docs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2.5rem;
+            padding: 1.25rem;
+            background: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--border-color);
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+        
+        .docs-nav a {
+            padding: 0.6rem 1.1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius-sm);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .docs-nav a i {
+            font-size: 0.85rem;
+            color: var(--primary);
+        }
+        
+        .docs-nav a:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .docs-nav a:hover i {
+            color: white;
+        }
+        
+        .docs-section {
+            margin-bottom: 3.5rem;
+            scroll-margin-top: 5rem;
+        }
+        
+        .docs-section h2 {
+            font-size: 1.85rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .docs-section h2 i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .docs-section h3 {
+            font-size: 1.2rem;
+            margin: 2rem 0 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .docs-section h3::before {
+            content: '';
+            width: 4px;
+            height: 1.2em;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .docs-section p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+            font-size: 0.95rem;
+        }
+        
+        .docs-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .docs-section ul li {
+            padding: 0.625rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .docs-section ul li::before {
+            content: "\\f00c";
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-size: 0.85rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+        }
+        
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 1.75rem;
+            transition: var(--transition-fast);
+            border-left: 4px solid transparent;
+        }
+        
+        .feature-card:hover {
+            border-left-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .feature-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+        
+        .feature-card h4 i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .step-list {
+            counter-reset: step;
+        }
+        
+        .step-item {
+            display: flex;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            background: var(--bg-card);
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            transition: var(--transition-fast);
+        }
+        
+        .step-item:hover {
+            border-color: var(--primary);
+        }
+        
+        .step-number {
+            width: 44px;
+            height: 44px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(208, 0, 0, 0.3);
+        }
+        
+        .step-content h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+        
+        .step-content p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        
+        .code-block {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 1rem 1.25rem;
+            font-family: 'JetBrains Mono', 'Consolas', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            color: var(--warning);
+        }
+        
+        .tip-box {
+            background: var(--info-bg);
+            border-left: 4px solid var(--info);
+            padding: 1.25rem;
+            border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+            margin: 1.5rem 0;
+        }
+        
+        .tip-box.warning {
+            background: var(--warning-bg);
+            border-left-color: var(--warning);
+        }
+        
+        .tip-box.success {
+            background: var(--success-bg);
+            border-left-color: var(--success);
+        }
+        
+        .tip-box strong {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .tip-box p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            margin-bottom: 0.875rem;
+            overflow: hidden;
+            transition: var(--transition-fast);
+        }
+        
+        .faq-item:hover {
+            border-color: var(--primary);
+        }
+        
+        .faq-question {
+            padding: 1.125rem 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-fast);
+            font-size: 0.95rem;
+        }
+        
+        .faq-question:hover {
+            background: var(--bg-hover);
+        }
+        
+        .faq-question i {
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-answer {
+            padding: 0 1.25rem 1.25rem;
+            color: var(--text-secondary);
+            display: none;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+        
+        .faq-item.open .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .shortcut-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        
+        .shortcut-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--border-color);
+        }
+        
+        .shortcut-key {
+            background: var(--bg-primary);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+            color: var(--warning);
+            font-weight: 500;
+        }
+        
+        .docs-footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+            background: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+        }
+        
+        .docs-footer p {
+            color: var(--text-muted);
+            margin: 0.5rem 0;
+        }
+        
+        .docs-footer .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        @media (max-width: 768px) {
+            .docs-container {
+                padding: 1.5rem 1rem;
+            }
+            
+            .docs-header h1 {
+                font-size: 2rem;
+            }
+            
+            .docs-nav {
+                position: static;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="docs-container">
+        <a href="/" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Back to Dashboard
+        </a>
+        
+        <header class="docs-header">
+            <div class="docs-logo">
+                <i class="fas fa-shield-halved"></i>
+            </div>
+            <h1>Endpoint Assist <span class="version-badge">v2.0</span></h1>
+            <p>Professional IT Help Desk & System Diagnostics Tool — Your complete solution for endpoint troubleshooting, device management, and support operations.</p>
+        </header>
+        
+        <nav class="docs-nav">
+            <a href="#overview"><i class="fas fa-info-circle"></i> Overview</a>
+            <a href="#getting-started"><i class="fas fa-rocket"></i> Getting Started</a>
+            <a href="#features"><i class="fas fa-star"></i> Features</a>
+            <a href="#troubleshooting"><i class="fas fa-wrench"></i> Troubleshooting</a>
+            <a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a>
+            <a href="#shortcuts"><i class="fas fa-keyboard"></i> Shortcuts</a>
+        </nav>
+        
+        <!-- Overview Section -->
+        <section class="docs-section" id="overview">
+            <h2><i class="fas fa-info-circle"></i> Overview</h2>
+            <p>
+                Endpoint Assist is a comprehensive IT help desk web application designed to streamline 
+                endpoint troubleshooting, network diagnostics, device management, and support ticket handling. 
+                Built with modern web technologies, it provides IT professionals with all the tools they need 
+                to efficiently support and maintain computer systems across Windows, macOS, and mobile platforms.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4><i class="fas fa-microchip"></i> System Diagnostics</h4>
+                    <p>Monitor CPU, RAM, disk usage, and system health in real-time with visual gauges and detailed reports.</p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fas fa-network-wired"></i> Network Tools</h4>
+                    <p>Ping tests, DNS resolution, traceroute, port checking, and WiFi diagnostics all in one place.</p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fas fa-shield-halved"></i> Security Status</h4>
+                    <p>Check Windows Defender status, firewall configuration, and get a comprehensive security score.</p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fab fa-apple"></i> macOS Support</h4>
+                    <p>Troubleshooting guides for SMC reset, NVRAM, Safe Mode boot, and Disk Utility operations.</p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fas fa-mobile-screen"></i> Mobile Devices</h4>
+                    <p>Manage iOS and Android devices with MDM enrollment, email config, and common issue resolution.</p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fas fa-ticket"></i> Ticket System</h4>
+                    <p>Create, track, and manage support tickets with categorization, priority levels, and status tracking.</p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fas fa-book-open"></i> Knowledge Base</h4>
+                    <p>Searchable library of IT solutions with step-by-step guides for common issues and organization-specific topics.</p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fas fa-box-archive"></i> Asset Inventory</h4>
+                    <p>Complete hardware and software inventory with detailed specifications and license tracking.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Getting Started Section -->
+        <section class="docs-section" id="getting-started">
+            <h2><i class="fas fa-rocket"></i> Getting Started</h2>
+            
+            <h3>System Requirements</h3>
+            <ul>
+                <li>Windows 10/11 operating system</li>
+                <li>Python 3.8 or higher</li>
+                <li>Modern web browser (Chrome, Firefox, Edge)</li>
+                <li>Administrator privileges (for some features)</li>
+            </ul>
+            
+            <h3>Installation Steps</h3>
+            <div class="step-list">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Install Dependencies</h4>
+                        <p>Run the following command to install required Python packages:</p>
+                        <div class="code-block">pip install flask flask-cors psutil wmi</div>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Start the Application</h4>
+                        <p>Navigate to the application directory and run:</p>
+                        <div class="code-block">python app.py</div>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Access the Dashboard</h4>
+                        <p>Open your browser and navigate to:</p>
+                        <div class="code-block">http://localhost:5001</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tip-box success">
+                <strong><i class="fas fa-lightbulb"></i> Pro Tip</strong>
+                <p>For the best experience, run the application with administrator privileges to access all system information.</p>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="docs-section" id="features">
+            <h2><i class="fas fa-star"></i> Features Guide</h2>
+            
+            <h3>Dashboard</h3>
+            <p>
+                The main dashboard provides a quick overview of your system's health, including real-time 
+                CPU, memory, and disk usage. It also displays recent tickets, security status, and network 
+                connectivity information.
+            </p>
+            
+            <h3>System Health</h3>
+            <p>
+                Get detailed information about your operating system, processor, memory, and storage. 
+                Visual gauges show current usage levels, and the processes table displays top resource consumers.
+            </p>
+            <ul>
+                <li>Real-time CPU and memory monitoring</li>
+                <li>Disk space analysis with visual indicators</li>
+                <li>Battery status (for laptops)</li>
+                <li>Running processes overview</li>
+                <li>Boot time and uptime tracking</li>
+            </ul>
+            
+            <h3>Security Status</h3>
+            <p>
+                Monitor your system's security posture with checks for Windows Defender, firewall status, 
+                and Windows Update status. The security score gives you a quick assessment of your protection level.
+            </p>
+            
+            <h3>Network Diagnostics</h3>
+            <p>
+                Comprehensive network troubleshooting tools to diagnose connectivity issues:
+            </p>
+            <ul>
+                <li><strong>Ping Test:</strong> Check if a host is reachable</li>
+                <li><strong>DNS Resolution:</strong> Verify domain name resolution</li>
+                <li><strong>Port Check:</strong> Test if specific ports are open</li>
+                <li><strong>Traceroute:</strong> Visualize the path to a destination</li>
+                <li><strong>WiFi Status:</strong> Check wireless connection details</li>
+            </ul>
+            
+            <h3>Quick Tools</h3>
+            <p>
+                One-click solutions for common IT tasks:
+            </p>
+            <ul>
+                <li><strong>Clean Temp Files:</strong> Remove temporary files to free disk space</li>
+                <li><strong>Clear Browser Cache:</strong> Clear cached data from Chrome and Edge</li>
+                <li><strong>Reset Network:</strong> Flush DNS and reset network configuration</li>
+                <li><strong>View Error Logs:</strong> Check recent Windows error events</li>
+            </ul>
+            
+            <h3>Ticket System</h3>
+            <p>
+                Create and manage support tickets with the built-in ticketing system:
+            </p>
+            <ul>
+                <li>Create tickets with title, description, category, and priority</li>
+                <li>Track ticket status (Open, In Progress, Resolved)</li>
+                <li>Filter tickets by status</li>
+                <li>Timestamp tracking for SLA compliance</li>
+            </ul>
+            
+            <div class="tip-box">
+                <strong><i class="fas fa-info-circle"></i> Note</strong>
+                <p>Tickets are stored in memory and will be cleared when the server restarts. For production use, consider integrating with a database.</p>
+            </div>
+        </section>
+        
+        <!-- Troubleshooting Section -->
+        <section class="docs-section" id="troubleshooting">
+            <h2><i class="fas fa-wrench"></i> Troubleshooting Guide</h2>
+            
+            <h3>Common Issues</h3>
+            
+            <h4>🔴 High CPU Usage</h4>
+            <ul>
+                <li>Check the Processes table to identify resource-heavy applications</li>
+                <li>Review startup programs and disable unnecessary ones</li>
+                <li>Run a malware scan using Windows Defender</li>
+                <li>Check for Windows Updates</li>
+            </ul>
+            
+            <h4>🔴 Low Disk Space</h4>
+            <ul>
+                <li>Use the "Clean Temp Files" quick tool</li>
+                <li>Clear browser cache</li>
+                <li>Uninstall unused applications (check Software Inventory)</li>
+                <li>Run Windows Disk Cleanup</li>
+            </ul>
+            
+            <h4>🔴 Network Connectivity Issues</h4>
+            <ul>
+                <li>Run a Ping test to check basic connectivity</li>
+                <li>Test DNS resolution with a known domain</li>
+                <li>Use the Network Reset tool</li>
+                <li>Check WiFi signal strength</li>
+                <li>Run traceroute to identify where connection fails</li>
+            </ul>
+            
+            <h4>🔴 Security Warnings</h4>
+            <ul>
+                <li>Ensure Windows Defender is enabled</li>
+                <li>Verify firewall is active on all profiles</li>
+                <li>Check for pending Windows Updates</li>
+                <li>Review recent error logs for security events</li>
+            </ul>
+            
+            <div class="tip-box warning">
+                <strong><i class="fas fa-exclamation-triangle"></i> Warning</strong>
+                <p>Some features require administrator privileges. If certain data is not loading, try running the application as administrator.</p>
+            </div>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section class="docs-section" id="faq">
+            <h2><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
+            
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-question">
+                    Why are some features showing "Unknown" or not loading?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Some system information requires administrator privileges to access. Try running the application 
+                    as administrator by right-clicking on your terminal and selecting "Run as administrator" before 
+                    starting the server.
+                </div>
+            </div>
+            
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-question">
+                    Is my data secure?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    All data is processed locally on your machine. No information is sent to external servers. 
+                    The application runs entirely on localhost and only accesses local system information.
+                </div>
+            </div>
+            
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-question">
+                    Can I use this tool remotely?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    The current version is designed for local use. For remote access, you would need to configure 
+                    the server to listen on your network interface and implement proper authentication and encryption.
+                </div>
+            </div>
+            
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-question">
+                    How do I change the port number?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Open the app.py file and find the line <code>app.run(host='0.0.0.0', port=5001, debug=True)</code>. 
+                    Change the port number to your desired value.
+                </div>
+            </div>
+            
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-question">
+                    Can I add custom tools or features?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Yes! The application is built with extensibility in mind. You can add new API endpoints in 
+                    app.py and corresponding UI components in the templates and JavaScript files.
+                </div>
+            </div>
+        </section>
+        
+        <!-- Shortcuts Section -->
+        <section class="docs-section" id="shortcuts">
+            <h2><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h2>
+            
+            <div class="shortcut-grid">
+                <div class="shortcut-item">
+                    <span class="shortcut-key">Ctrl + R</span>
+                    <span>Refresh current view</span>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-key">Esc</span>
+                    <span>Close modal/dialog</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="docs-footer">
+            <p class="footer-brand"><i class="fas fa-shield-halved" style="color: var(--primary);"></i> Endpoint Assist</p>
+            <p>Professional IT Help Desk Tool for Modern IT Support Teams</p>
+            <p style="font-size: 0.85rem; margin-top: 1rem;">
+                <i class="fas fa-code" style="color: var(--primary);"></i> Built with Flask, Python, and modern web technologies
+            </p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--text-muted);">
+                © 2026 — Designed for IT Professionals
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

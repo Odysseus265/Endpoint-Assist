@@ -1,0 +1,2159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Endpoint Assist - Professional IT Help Desk Dashboard for system diagnostics, network tools, and support ticket management">
+    <meta name="theme-color" content="#d00000">
+    <title>Endpoint Assist - IT Help Desk Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23d00000'/><text x='50' y='65' text-anchor='middle' font-size='50' fill='white'>⛨</text></svg>">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>Endpoint Assist</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <span class="nav-section-title">Overview</span>
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-gauge-high"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+            
+            <div class="nav-section">
+                <span class="nav-section-title">Diagnostics</span>
+                <a href="#" class="nav-item" data-section="system">
+                    <i class="fas fa-microchip"></i>
+                    <span>System Health</span>
+                </a>
+                <a href="#" class="nav-item" data-section="macos">
+                    <i class="fab fa-apple"></i>
+                    <span>macOS Support</span>
+                </a>
+                <a href="#" class="nav-item" data-section="mobile">
+                    <i class="fas fa-mobile-screen"></i>
+                    <span>Mobile Devices</span>
+                </a>
+                <a href="#" class="nav-item" data-section="security">
+                    <i class="fas fa-shield-virus"></i>
+                    <span>Security Status</span>
+                </a>
+                <a href="#" class="nav-item" data-section="network">
+                    <i class="fas fa-network-wired"></i>
+                    <span>Network Tools</span>
+                </a>
+                <a href="#" class="nav-item" data-section="performance">
+                    <i class="fas fa-bolt"></i>
+                    <span>Performance</span>
+                </a>
+            </div>
+            
+            <div class="nav-section">
+                <span class="nav-section-title">Devices</span>
+                <a href="#" class="nav-item" data-section="peripherals">
+                    <i class="fas fa-print"></i>
+                    <span>Peripherals</span>
+                </a>
+                <a href="#" class="nav-item" data-section="iot">
+                    <i class="fas fa-wifi"></i>
+                    <span>IoT & AV Devices</span>
+                </a>
+                <a href="#" class="nav-item" data-section="inventory">
+                    <i class="fas fa-box-archive"></i>
+                    <span>Inventory</span>
+                </a>
+                <a href="#" class="nav-item" data-section="procurement">
+                    <i class="fas fa-cart-shopping"></i>
+                    <span>Procurement</span>
+                </a>
+            </div>
+            
+            <div class="nav-section">
+                <span class="nav-section-title">Support</span>
+                <a href="#" class="nav-item" data-section="tickets">
+                    <i class="fas fa-ticket"></i>
+                    <span>Tickets</span>
+                </a>
+                <a href="#" class="nav-item" data-section="knowledge">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Knowledge Base</span>
+                </a>
+                <a href="#" class="nav-item" data-section="tools">
+                    <i class="fas fa-toolbox"></i>
+                    <span>Quick Tools</span>
+                </a>
+            </div>
+            
+            <div class="nav-section">
+                <span class="nav-section-title">User Management</span>
+                <a href="#" class="nav-item" data-section="adusers">
+                    <i class="fas fa-users-cog"></i>
+                    <span>AD User Lookup</span>
+                </a>
+                <a href="#" class="nav-item" data-section="onboarding">
+                    <i class="fas fa-user-plus"></i>
+                    <span>New Employee</span>
+                </a>
+            </div>
+            
+            <div class="nav-section">
+                <span class="nav-section-title">System Admin</span>
+                <a href="#" class="nav-item" data-section="services">
+                    <i class="fas fa-server"></i>
+                    <span>Services</span>
+                </a>
+                <a href="#" class="nav-item" data-section="compliance">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>Compliance</span>
+                </a>
+                <a href="#" class="nav-item" data-section="remotetools">
+                    <i class="fas fa-desktop"></i>
+                    <span>Remote Tools</span>
+                </a>
+            </div>
+            
+            <div class="nav-section">
+                <span class="nav-section-title">Admin</span>
+                <a href="#" class="nav-item" data-section="logs">
+                    <i class="fas fa-scroll"></i>
+                    <span>Audit Logs</span>
+                </a>
+                <a href="#" class="nav-item" data-section="reports">
+                    <i class="fas fa-file-lines"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="#" class="nav-item" data-section="experimental">
+                    <i class="fas fa-flask"></i>
+                    <span>Experimental</span>
+                </a>
+                <a href="/documentation" class="nav-item">
+                    <i class="fas fa-book"></i>
+                    <span>Documentation</span>
+                </a>
+            </div>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <span class="user-name">IT Admin</span>
+                    <span class="user-role">Administrator</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-left">
+                <h1 id="pageTitle">Dashboard</h1>
+                <span class="header-subtitle">System Overview & Quick Actions</span>
+            </div>
+            <div class="header-right">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <button class="header-btn" onclick="refreshAll()">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge" id="alertCount"></span>
+                </div>
+                <div class="current-time" id="currentTime"></div>
+            </div>
+        </header>
+
+        <!-- Content Sections -->
+        <div class="content-wrapper">
+            
+            <!-- Dashboard Section -->
+            <section class="content-section active" id="dashboardSection">
+                <!-- Quick Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon cpu">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="cpuUsage">--</span>
+                            <span class="stat-label">CPU Usage</span>
+                        </div>
+                        <div class="stat-chart">
+                            <canvas id="cpuChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon memory">
+                            <i class="fas fa-memory"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="memoryUsage">--</span>
+                            <span class="stat-label">Memory Usage</span>
+                        </div>
+                        <div class="stat-chart">
+                            <canvas id="memoryChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon disk">
+                            <i class="fas fa-hard-drive"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="diskUsage">--</span>
+                            <span class="stat-label">Disk Usage</span>
+                        </div>
+                        <div class="stat-chart">
+                            <canvas id="diskChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon network">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="networkStatus">--</span>
+                            <span class="stat-label">Network</span>
+                        </div>
+                        <div class="stat-indicator" id="networkIndicator"></div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Grid -->
+                <div class="dashboard-grid">
+                    <!-- System Info Card -->
+                    <div class="card system-info-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-computer"></i> System Information</h3>
+                            <button class="card-btn" onclick="loadSystemHealth()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-grid" id="systemInfo">
+                                <div class="info-item">
+                                    <span class="info-label">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Overview -->
+                    <div class="card security-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-shield-halved"></i> Security Overview</h3>
+                            <button class="card-btn" onclick="loadSecurityStatus()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="security-items" id="securityOverview">
+                                <div class="security-item loading">
+                                    <span>Loading security status...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="card quick-actions-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="action-buttons">
+                                <button class="action-btn" onclick="cleanTempFiles()">
+                                    <i class="fas fa-broom"></i>
+                                    <span>Clear Temp Files</span>
+                                </button>
+                                <button class="action-btn" onclick="flushDNS()">
+                                    <i class="fas fa-network-wired"></i>
+                                    <span>Flush DNS Cache</span>
+                                </button>
+                                <button class="action-btn" onclick="networkReset()">
+                                    <i class="fas fa-rotate"></i>
+                                    <span>Network Reset</span>
+                                </button>
+                                <button class="action-btn" onclick="generateReport('full')">
+                                    <i class="fas fa-file-lines"></i>
+                                    <span>Export Report</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Tickets -->
+                    <div class="card tickets-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-ticket"></i> Recent Tickets</h3>
+                            <button class="card-btn primary" onclick="showSection('tickets')">
+                                <i class="fas fa-plus"></i> New Ticket
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="tickets-list" id="recentTickets">
+                                <div class="empty-state">
+                                    <i class="fas fa-inbox"></i>
+                                    <span>No tickets yet</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Network Status -->
+                    <div class="card network-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-network-wired"></i> Network Status</h3>
+                            <button class="card-btn" onclick="loadNetworkInfo()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="network-info" id="networkInfo">
+                                <div class="info-item">
+                                    <span class="info-label">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audit Log Preview -->
+                    <div class="card logs-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-scroll"></i> Recent Activity</h3>
+                            <button class="card-btn" onclick="showSection('logs')">
+                                View All
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="logs-list" id="recentLogs">
+                                <div class="empty-state">
+                                    <i class="fas fa-clock-rotate-left"></i>
+                                    <span>No recent activity</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- System Health Section -->
+            <section class="content-section" id="systemSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-microchip"></i> System Health</h2>
+                    <p>Monitor your system's vital statistics and performance metrics</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <!-- OS Information -->
+                    <div class="card full-width">
+                        <div class="card-header">
+                            <h3><i class="fas fa-desktop"></i> Operating System</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="os-info" id="osInfo">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CPU Monitor -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-microchip"></i> CPU Monitor</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="gauge-container">
+                                <div class="gauge" id="cpuGauge">
+                                    <div class="gauge-fill"></div>
+                                    <div class="gauge-cover">
+                                        <span class="gauge-value">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cpu-details" id="cpuDetails"></div>
+                        </div>
+                    </div>
+
+                    <!-- Memory Monitor -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-memory"></i> Memory Usage</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="gauge-container">
+                                <div class="gauge" id="memoryGauge">
+                                    <div class="gauge-fill"></div>
+                                    <div class="gauge-cover">
+                                        <span class="gauge-value">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="memory-details" id="memoryDetails"></div>
+                        </div>
+                    </div>
+
+                    <!-- Disk Usage -->
+                    <div class="card full-width">
+                        <div class="card-header">
+                            <h3><i class="fas fa-hard-drive"></i> Disk Storage</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="disks-container" id="disksInfo">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Battery -->
+                    <div class="card" id="batteryCard">
+                        <div class="card-header">
+                            <h3><i class="fas fa-battery-three-quarters"></i> Battery Status</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="battery-info" id="batteryInfo">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Running Processes -->
+                    <div class="card processes-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-list-check"></i> Top Processes</h3>
+                            <button class="card-btn" onclick="loadProcesses()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="processes-table" id="processesTable">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Security Section -->
+            <section class="content-section" id="securitySection">
+                <div class="section-header">
+                    <h2><i class="fas fa-shield-halved"></i> Security Status</h2>
+                    <p>Monitor your system's security posture and protection status</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <!-- Windows Defender -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-shield-virus"></i> Windows Defender</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="security-status" id="defenderStatus">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Firewall -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-fire"></i> Firewall Status</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="security-status" id="firewallStatus">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Updates -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-download"></i> Windows Updates</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="security-status" id="updateStatus">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Score -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-star"></i> Security Score</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="security-score" id="securityScore">
+                                <div class="score-circle">
+                                    <span class="score-value">--</span>
+                                </div>
+                                <span class="score-label">Calculating...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Network Section -->
+            <section class="content-section" id="networkSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-network-wired"></i> Network Diagnostics</h2>
+                    <p>Test and troubleshoot network connectivity</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <!-- Network Info -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-info-circle"></i> Network Information</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="network-details" id="networkDetails">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WiFi Status -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-wifi"></i> WiFi Status</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="wifi-status" id="wifiStatus">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ping Test -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-satellite-dish"></i> Ping Test</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="test-form">
+                                <div class="input-group">
+                                    <input type="text" id="pingTarget" placeholder="Enter IP or hostname" value="8.8.8.8">
+                                    <button class="btn primary" onclick="runPingTest()">
+                                        <i class="fas fa-play"></i> Run
+                                    </button>
+                                </div>
+                                <div class="test-results" id="pingResults"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DNS Test -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-globe"></i> DNS Resolution</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="test-form">
+                                <div class="input-group">
+                                    <input type="text" id="dnsTarget" placeholder="Enter domain" value="google.com">
+                                    <button class="btn primary" onclick="runDnsTest()">
+                                        <i class="fas fa-play"></i> Resolve
+                                    </button>
+                                </div>
+                                <div class="test-results" id="dnsResults"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Port Check -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-door-open"></i> Port Check</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="test-form">
+                                <div class="input-group">
+                                    <input type="text" id="portHost" placeholder="Host" value="google.com">
+                                    <input type="number" id="portNumber" placeholder="Port" value="443" style="width: 100px;">
+                                    <button class="btn primary" onclick="runPortCheck()">
+                                        <i class="fas fa-play"></i> Check
+                                    </button>
+                                </div>
+                                <div class="test-results" id="portResults"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Traceroute -->
+                    <div class="card full-width">
+                        <div class="card-header">
+                            <h3><i class="fas fa-route"></i> Traceroute</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="test-form">
+                                <div class="input-group">
+                                    <input type="text" id="tracerouteTarget" placeholder="Enter IP or hostname" value="8.8.8.8">
+                                    <button class="btn primary" onclick="runTraceroute()">
+                                        <i class="fas fa-play"></i> Trace
+                                    </button>
+                                </div>
+                                <div class="test-results code" id="tracerouteResults"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Performance Section -->
+            <section class="content-section" id="performanceSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-bolt"></i> Performance Tools</h2>
+                    <p>Optimize and maintain system performance</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <!-- Startup Programs -->
+                    <div class="card full-width">
+                        <div class="card-header">
+                            <h3><i class="fas fa-rocket"></i> Startup Programs</h3>
+                            <button class="card-btn" onclick="loadStartupPrograms()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="startup-list" id="startupList">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Temp File Cleaner -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-broom"></i> Temp File Cleaner</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="cleaner-info">
+                                <p>Clean temporary files to free up disk space and improve performance.</p>
+                                <button class="btn primary large" onclick="cleanTempFiles()">
+                                    <i class="fas fa-trash"></i> Clean Temp Files
+                                </button>
+                                <div class="cleaner-results" id="cleanerResults"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Speed Test -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-gauge-high"></i> Speed Test</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="speed-test">
+                                <button class="btn primary large" onclick="runSpeedTest()">
+                                    <i class="fas fa-tachometer-alt"></i> Start Speed Test
+                                </button>
+                                <div class="speed-results" id="speedResults"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Peripherals Section -->
+            <section class="content-section" id="peripheralsSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-print"></i> Peripheral Devices</h2>
+                    <p>Manage printers, audio, cameras, and other connected devices</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <!-- Printers -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-print"></i> Printers</h3>
+                            <button class="card-btn" onclick="loadPrinters()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="devices-list" id="printersList">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audio Devices -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-volume-high"></i> Audio Devices</h3>
+                            <button class="card-btn" onclick="loadAudioDevices()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="devices-list" id="audioList">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cameras -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-camera"></i> Cameras</h3>
+                            <button class="card-btn" onclick="loadCameras()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="devices-list" id="camerasList">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bluetooth -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-bluetooth-b"></i> Bluetooth</h3>
+                            <button class="card-btn" onclick="loadBluetooth()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="devices-list" id="bluetoothList">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- USB Devices -->
+                    <div class="card full-width">
+                        <div class="card-header">
+                            <h3><i class="fas fa-usb"></i> USB Devices</h3>
+                            <button class="card-btn" onclick="loadUsbDevices()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="devices-list" id="usbList">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inventory Section -->
+            <section class="content-section" id="inventorySection">
+                <div class="section-header">
+                    <h2><i class="fas fa-box-archive"></i> Device Inventory</h2>
+                    <p>Complete hardware and software inventory of this device</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <!-- Hardware Info -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-server"></i> Hardware Specifications</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="inventory-info" id="hardwareInventory">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Browsers -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-globe"></i> Installed Browsers</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="inventory-info" id="browsersInventory">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Installed Software -->
+                    <div class="card full-width">
+                        <div class="card-header">
+                            <h3><i class="fas fa-cube"></i> Installed Software</h3>
+                            <div class="search-box small">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="softwareSearch" placeholder="Search software..." onkeyup="filterSoftware()">
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="software-list" id="softwareList">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tickets Section -->
+            <section class="content-section" id="ticketsSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-ticket"></i> Support Tickets</h2>
+                    <p>Manage and track support requests</p>
+                </div>
+                
+                <div class="tickets-layout">
+                    <!-- New Ticket Form -->
+                    <div class="card ticket-form-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-plus-circle"></i> Create New Ticket</h3>
+                        </div>
+                        <div class="card-content">
+                            <form id="ticketForm" onsubmit="createTicket(event)">
+                                <div class="form-group">
+                                    <label for="ticketTitle">Title</label>
+                                    <input type="text" id="ticketTitle" required placeholder="Brief description of the issue">
+                                </div>
+                                <div class="form-group">
+                                    <label for="ticketCategory">Category</label>
+                                    <select id="ticketCategory" required>
+                                        <option value="network">Network Issue</option>
+                                        <option value="hardware">Hardware Problem</option>
+                                        <option value="software">Software Issue</option>
+                                        <option value="account">Account/Access</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ticketPriority">Priority</label>
+                                    <select id="ticketPriority" required>
+                                        <option value="low">Low</option>
+                                        <option value="medium" selected>Medium</option>
+                                        <option value="high">High</option>
+                                        <option value="critical">Critical</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ticketDescription">Description</label>
+                                    <textarea id="ticketDescription" rows="4" required placeholder="Detailed description of the issue..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ticketUser">Your Name</label>
+                                    <input type="text" id="ticketUser" required placeholder="Enter your name">
+                                </div>
+                                <button type="submit" class="btn primary large full-width">
+                                    <i class="fas fa-paper-plane"></i> Submit Ticket
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Tickets List -->
+                    <div class="card tickets-list-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-list"></i> All Tickets</h3>
+                            <div class="filter-buttons">
+                                <button class="filter-btn active" data-filter="all">All</button>
+                                <button class="filter-btn" data-filter="open">Open</button>
+                                <button class="filter-btn" data-filter="in-progress">In Progress</button>
+                                <button class="filter-btn" data-filter="resolved">Resolved</button>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="tickets-table" id="ticketsTable">
+                                <div class="empty-state">
+                                    <i class="fas fa-inbox"></i>
+                                    <span>No tickets found</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tools Section -->
+            <section class="content-section" id="toolsSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-toolbox"></i> Quick Tools</h2>
+                    <p>One-click solutions for common issues</p>
+                </div>
+                
+                <div class="tools-grid">
+                    <div class="tool-card" onclick="cleanTempFiles()">
+                        <div class="tool-icon">
+                            <i class="fas fa-broom"></i>
+                        </div>
+                        <h4>Clean Temp Files</h4>
+                        <p>Remove temporary files to free disk space</p>
+                    </div>
+                    
+                    <div class="tool-card" onclick="clearBrowserCache()">
+                        <div class="tool-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h4>Clear Browser Cache</h4>
+                        <p>Clear cached data from web browsers</p>
+                    </div>
+                    
+                    <div class="tool-card" onclick="networkReset()">
+                        <div class="tool-icon">
+                            <i class="fas fa-rotate"></i>
+                        </div>
+                        <h4>Reset Network</h4>
+                        <p>Flush DNS and reset network settings</p>
+                    </div>
+                    
+                    <div class="tool-card" onclick="loadErrorLogs()">
+                        <div class="tool-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h4>View Error Logs</h4>
+                        <p>Check recent Windows error events</p>
+                    </div>
+                    
+                    <div class="tool-card" onclick="generateReport('full')">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-export"></i>
+                        </div>
+                        <h4>System Report</h4>
+                        <p>Generate comprehensive system report</p>
+                    </div>
+                    
+                    <div class="tool-card" onclick="runSpeedTest()">
+                        <div class="tool-icon">
+                            <i class="fas fa-gauge-high"></i>
+                        </div>
+                        <h4>Speed Test</h4>
+                        <p>Test your internet connection speed</p>
+                    </div>
+                </div>
+
+                <!-- Error Logs Display -->
+                <div class="card" id="errorLogsCard" style="display: none;">
+                    <div class="card-header">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Recent Error Logs</h3>
+                        <button class="card-btn" onclick="document.getElementById('errorLogsCard').style.display='none'">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="card-content">
+                        <div class="error-logs-list" id="errorLogsList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Audit Logs Section -->
+            <section class="content-section" id="logsSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-scroll"></i> Audit Logs</h2>
+                    <p>Track all actions and system events</p>
+                </div>
+                
+                <div class="card full-width">
+                    <div class="card-header">
+                        <h3><i class="fas fa-scroll"></i> Activity Log</h3>
+                        <button class="card-btn" onclick="loadAuditLogs()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                    <div class="card-content">
+                        <div class="audit-logs-table" id="auditLogsTable">
+                            <div class="loading-spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section class="content-section" id="reportsSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-file-lines"></i> Reports</h2>
+                    <p>Generate and export system reports</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card report-card" onclick="generateReport('full')">
+                        <div class="card-header">
+                            <h3><i class="fas fa-file-medical"></i> Full System Report</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Complete overview of system health, network, and security status.</p>
+                            <button class="btn primary">Generate Report</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card report-card" onclick="generateReport('network')">
+                        <div class="card-header">
+                            <h3><i class="fas fa-network-wired"></i> Network Report</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Detailed network configuration and connectivity analysis.</p>
+                            <button class="btn primary">Generate Report</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card report-card" onclick="generateReport('security')">
+                        <div class="card-header">
+                            <h3><i class="fas fa-shield-halved"></i> Security Report</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Security posture assessment and recommendations.</p>
+                            <button class="btn primary">Generate Report</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card report-card" onclick="generateReport('inventory')">
+                        <div class="card-header">
+                            <h3><i class="fas fa-box-archive"></i> Inventory Report</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Hardware and software inventory documentation.</p>
+                            <button class="btn primary">Generate Report</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report Display -->
+                <div class="card" id="reportDisplay" style="display: none;">
+                    <div class="card-header">
+                        <h3><i class="fas fa-file-lines"></i> Generated Report</h3>
+                        <div class="header-actions">
+                            <button class="card-btn" onclick="exportReport()">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                            <button class="card-btn" onclick="printReport()">
+                                <i class="fas fa-print"></i> Print
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="report-content" id="reportContent"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Knowledge Base Section -->
+            <section class="content-section" id="knowledgeSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-lightbulb"></i> Knowledge Base</h2>
+                    <p>IT solutions and troubleshooting guides</p>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="card">
+                    <div class="card-content">
+                        <div class="search-container">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="kbSearchInput" class="search-input" placeholder="Search knowledge base (e.g., password, network, email)..." onkeyup="searchKnowledgeBase()">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- KB Articles Grid -->
+                <div class="cards-grid" id="kbArticlesGrid">
+                    <!-- Articles loaded dynamically -->
+                </div>
+                
+                <!-- Article Detail Modal Content -->
+                <div class="card" id="kbArticleDetail" style="display: none;">
+                    <div class="card-header">
+                        <h3><i class="fas fa-file-lines"></i> <span id="kbArticleTitle">Article Title</span></h3>
+                        <div class="header-actions">
+                            <button class="card-btn" onclick="backToKBList()">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="kb-article-content" id="kbArticleContent"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AD User Lookup Section -->
+            <section class="content-section" id="adusersSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-users-cog"></i> Active Directory User Lookup</h2>
+                    <p>Search and manage user accounts</p>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-search"></i> User Search</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="search-container">
+                            <i class="fas fa-user search-icon"></i>
+                            <input type="text" id="adSearchInput" class="search-input" placeholder="Search by username, name, or email..." onkeyup="searchADUsers()">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AD Users Results -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-users"></i> Search Results</h3>
+                        <span class="badge info" id="adUserCount">0 users</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="table-container">
+                            <table class="data-table" id="adUsersTable">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Full Name</th>
+                                        <th>Email</th>
+                                        <th>Department</th>
+                                        <th>Status</th>
+                                        <th>Last Login</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adUsersBody">
+                                    <tr>
+                                        <td colspan="7" class="empty-state">
+                                            <i class="fas fa-users"></i>
+                                            <p>Enter a search term to find users</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- User Actions Panel -->
+                <div class="card" id="adUserActions" style="display: none;">
+                    <div class="card-header">
+                        <h3><i class="fas fa-user-cog"></i> User Actions: <span id="selectedUserName"></span></h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="action-buttons-grid">
+                            <button class="btn warning" onclick="resetUserPassword()">
+                                <i class="fas fa-key"></i> Reset Password
+                            </button>
+                            <button class="btn info" onclick="unlockUserAccount()">
+                                <i class="fas fa-lock-open"></i> Unlock Account
+                            </button>
+                            <button class="btn secondary" onclick="viewUserDetails()">
+                                <i class="fas fa-info-circle"></i> Full Details
+                            </button>
+                            <button class="btn success" onclick="sendPasswordEmail()">
+                                <i class="fas fa-envelope"></i> Email User
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Onboarding Section -->
+            <section class="content-section" id="onboardingSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-user-plus"></i> New Employee Onboarding</h2>
+                    <p>IT setup checklist for new hires</p>
+                </div>
+                
+                <!-- Employee Info Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-user-plus"></i> New Employee Information</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Employee Name</label>
+                                <input type="text" id="newEmpName" placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label>Department</label>
+                                <select id="newEmpDept">
+                                    <option value="">Select Department</option>
+                                    <option value="Student Life">Student Life</option>
+                                    <option value="Housing">Housing</option>
+                                    <option value="Academic Affairs">Academic Affairs</option>
+                                    <option value="IT Services">IT Services</option>
+                                    <option value="Administration">Administration</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <input type="date" id="newEmpDate">
+                            </div>
+                            <div class="form-group">
+                                <label>Manager</label>
+                                <input type="text" id="newEmpManager" placeholder="Manager Name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Onboarding Checklist -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-tasks"></i> IT Setup Checklist</h3>
+                        <div class="header-actions">
+                            <span class="progress-text" id="onboardProgress">0 / 15 Complete</span>
+                            <button class="card-btn" onclick="loadOnboardingChecklist()">
+                                <i class="fas fa-sync"></i> Reload
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="onboardProgressBar" style="width: 0%"></div>
+                        </div>
+                        <div class="checklist-grid" id="onboardingChecklist">
+                            <!-- Checklist items loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="card">
+                    <div class="card-content">
+                        <div class="action-buttons-grid">
+                            <button class="btn success" onclick="saveOnboardingProgress()">
+                                <i class="fas fa-save"></i> Save Progress
+                            </button>
+                            <button class="btn info" onclick="generateOnboardingReport()">
+                                <i class="fas fa-file-pdf"></i> Generate Report
+                            </button>
+                            <button class="btn primary" onclick="sendWelcomeEmail()">
+                                <i class="fas fa-envelope"></i> Send Welcome Email
+                            </button>
+                            <button class="btn warning" onclick="resetOnboardingChecklist()">
+                                <i class="fas fa-redo"></i> Reset Checklist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section class="content-section" id="servicesSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-server"></i> Windows Services</h2>
+                    <p>Monitor and manage system services</p>
+                </div>
+                
+                <!-- Critical Services Status -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-heartbeat"></i> Critical Services</h3>
+                        <button class="card-btn" onclick="loadCriticalServices()">
+                            <i class="fas fa-sync"></i> Refresh
+                        </button>
+                    </div>
+                    <div class="card-content">
+                        <div class="services-grid" id="criticalServicesGrid">
+                            <!-- Critical services loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- All Services Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-server"></i> All Services</h3>
+                        <div class="header-actions">
+                            <input type="text" id="serviceSearch" class="inline-search" placeholder="Filter services..." onkeyup="filterServices()">
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="table-container scrollable">
+                            <table class="data-table" id="servicesTable">
+                                <thead>
+                                    <tr>
+                                        <th>Service Name</th>
+                                        <th>Display Name</th>
+                                        <th>Status</th>
+                                        <th>Start Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="servicesBody">
+                                    <tr>
+                                        <td colspan="4" class="empty-state">
+                                            <i class="fas fa-server"></i>
+                                            <p>Loading services...</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Compliance Section -->
+            <section class="content-section" id="complianceSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-clipboard-check"></i> System Compliance Check</h2>
+                    <p>Verify system meets IT security standards</p>
+                </div>
+                
+                <!-- Compliance Score Card -->
+                <div class="card compliance-score-card">
+                    <div class="card-content">
+                        <div class="compliance-score-wrapper">
+                            <div class="compliance-gauge">
+                                <svg viewBox="0 0 200 200">
+                                    <circle class="gauge-bg" cx="100" cy="100" r="85" />
+                                    <circle class="gauge-fill" id="complianceGaugeFill" cx="100" cy="100" r="85" />
+                                </svg>
+                                <div class="gauge-value">
+                                    <span id="complianceScore">--</span>
+                                    <span class="gauge-label">Score</span>
+                                </div>
+                            </div>
+                            <div class="compliance-summary">
+                                <h3>Compliance Status</h3>
+                                <div class="compliance-stats">
+                                    <div class="stat passed">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span id="passedChecks">0</span> Passed
+                                    </div>
+                                    <div class="stat failed">
+                                        <i class="fas fa-times-circle"></i>
+                                        <span id="failedChecks">0</span> Failed
+                                    </div>
+                                    <div class="stat warning">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        <span id="warningChecks">0</span> Warnings
+                                    </div>
+                                </div>
+                                <button class="btn primary" onclick="runComplianceCheck()">
+                                    <i class="fas fa-play"></i> Run Compliance Check
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Compliance Checks Results -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-list-check"></i> Compliance Checks</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="compliance-checks-list" id="complianceChecksList">
+                            <div class="empty-state">
+                                <i class="fas fa-clipboard-check"></i>
+                                <p>Click "Run Compliance Check" to start verification</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Remote Tools Section -->
+            <section class="content-section" id="remotetoolsSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-desktop"></i> Remote Support Tools</h2>
+                    <p>Remote desktop and support utilities</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <!-- Remote Desktop Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-desktop"></i> Remote Desktop</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Connect to a remote computer via RDP.</p>
+                            <div class="form-group">
+                                <label>Computer Name / IP</label>
+                                <input type="text" id="rdpTarget" placeholder="computer-name or 192.168.1.100">
+                            </div>
+                            <button class="btn primary" onclick="launchRDP()">
+                                <i class="fas fa-plug"></i> Connect
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Connect Cards -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-star"></i> Quick Connections</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="quick-connect-list">
+                                <button class="quick-connect-btn" onclick="quickConnect('HELPDESK-01')">
+                                    <i class="fas fa-headset"></i> Help Desk Server
+                                </button>
+                                <button class="quick-connect-btn" onclick="quickConnect('PRINT-SERVER')">
+                                    <i class="fas fa-print"></i> Print Server
+                                </button>
+                                <button class="quick-connect-btn" onclick="quickConnect('FILE-SERVER')">
+                                    <i class="fas fa-folder-open"></i> File Server
+                                </button>
+                                <button class="quick-connect-btn" onclick="quickConnect('DC-01')">
+                                    <i class="fas fa-shield-halved"></i> Domain Controller
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Network Utilities -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-terminal"></i> Quick Commands</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="action-buttons-vertical">
+                                <button class="btn secondary" onclick="runCommand('gpupdate')">
+                                    <i class="fas fa-sync"></i> gpupdate /force
+                                </button>
+                                <button class="btn secondary" onclick="runCommand('ipconfig')">
+                                    <i class="fas fa-network-wired"></i> ipconfig /all
+                                </button>
+                                <button class="btn secondary" onclick="runCommand('systeminfo')">
+                                    <i class="fas fa-info-circle"></i> System Info
+                                </button>
+                                <button class="btn secondary" onclick="runCommand('whoami')">
+                                    <i class="fas fa-user"></i> whoami /all
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Command Output -->
+                    <div class="card wide-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-terminal"></i> Command Output</h3>
+                            <button class="card-btn" onclick="clearCommandOutput()">
+                                <i class="fas fa-trash"></i> Clear
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <pre class="command-output" id="commandOutput">Command output will appear here...</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- macOS Support Section -->
+            <section class="content-section" id="macosSection">
+                <div class="section-header">
+                    <h2><i class="fab fa-apple"></i> macOS Support</h2>
+                    <p>Apple Mac diagnostics and troubleshooting tools</p>
+                    <div class="beta-badge">BETA</div>
+                </div>
+                
+                <!-- macOS System Info -->
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fab fa-apple"></i> System Information</h3>
+                            <button class="card-btn" onclick="loadMacInfo()">
+                                <i class="fas fa-sync"></i> Refresh
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-grid" id="macSystemInfo">
+                                <div class="info-item">
+                                    <span class="info-label">macOS Version</span>
+                                    <span class="info-value">Sonoma 14.3</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Model</span>
+                                    <span class="info-value">MacBook Pro (14-inch, 2023)</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Chip</span>
+                                    <span class="info-value">Apple M3 Pro</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Memory</span>
+                                    <span class="info-value">18 GB Unified</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Serial Number</span>
+                                    <span class="info-value">C02X123ABCD</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Uptime</span>
+                                    <span class="info-value">3 days, 14 hours</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-hard-drive"></i> Storage</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="mac-storage-visual">
+                                <div class="storage-bar">
+                                    <div class="storage-used" style="width: 65%"></div>
+                                </div>
+                                <div class="storage-legend">
+                                    <span><i class="fas fa-circle" style="color: var(--primary)"></i> Used: 312 GB</span>
+                                    <span><i class="fas fa-circle" style="color: var(--bg-hover)"></i> Available: 168 GB</span>
+                                </div>
+                            </div>
+                            <div class="info-grid" style="margin-top: 1rem;">
+                                <div class="info-item">
+                                    <span class="info-label">Total Capacity</span>
+                                    <span class="info-value">500 GB</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">File System</span>
+                                    <span class="info-value">APFS (Encrypted)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-battery-three-quarters"></i> Battery Health</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="battery-visual">
+                                <div class="battery-icon-large">
+                                    <i class="fas fa-battery-three-quarters"></i>
+                                    <span class="battery-percent">78%</span>
+                                </div>
+                            </div>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">Condition</span>
+                                    <span class="info-value" style="color: var(--success)">Normal</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Maximum Capacity</span>
+                                    <span class="info-value">92%</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Cycle Count</span>
+                                    <span class="info-value">214</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-wrench"></i> Common Mac Fixes</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="action-buttons-vertical">
+                                <button class="btn secondary" onclick="macCommand('resetSMC')">
+                                    <i class="fas fa-microchip"></i> Reset SMC Instructions
+                                </button>
+                                <button class="btn secondary" onclick="macCommand('resetNVRAM')">
+                                    <i class="fas fa-memory"></i> Reset NVRAM/PRAM
+                                </button>
+                                <button class="btn secondary" onclick="macCommand('safeMode')">
+                                    <i class="fas fa-shield"></i> Boot Safe Mode Guide
+                                </button>
+                                <button class="btn secondary" onclick="macCommand('diskUtility')">
+                                    <i class="fas fa-hard-drive"></i> Disk First Aid
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mac Troubleshooting Guide -->
+                <div class="card" style="margin-top: 1.25rem;">
+                    <div class="card-header">
+                        <h3><i class="fas fa-list-check"></i> macOS Troubleshooting Checklist</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="troubleshoot-checklist">
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle" style="color: var(--success)"></i>
+                                <span>Check for macOS software updates (Apple Menu > System Settings > General > Software Update)</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle" style="color: var(--success)"></i>
+                                <span>Verify startup disk has at least 10% free space</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle" style="color: var(--success)"></i>
+                                <span>Check Activity Monitor for runaway processes (CPU/Memory)</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle" style="color: var(--success)"></i>
+                                <span>Run Disk Utility First Aid on Macintosh HD</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle" style="color: var(--success)"></i>
+                                <span>Check System Preferences > Security & Privacy settings</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mobile Devices Section -->
+            <section class="content-section" id="mobileSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-mobile-screen"></i> Mobile Device Support</h2>
+                    <p>iOS and Android device management and troubleshooting</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <!-- iOS Device Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fab fa-apple"></i> iOS Device</h3>
+                            <span class="badge success">Connected</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="device-preview">
+                                <div class="phone-icon">
+                                    <i class="fas fa-mobile-screen-button"></i>
+                                </div>
+                                <div class="device-details">
+                                    <h4>iPhone 14 Pro</h4>
+                                    <span class="device-model">A2890 - 256GB</span>
+                                </div>
+                            </div>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">iOS Version</span>
+                                    <span class="info-value">17.3.1</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Battery</span>
+                                    <span class="info-value">87% (Good)</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Storage Used</span>
+                                    <span class="info-value">178 GB / 256 GB</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Last Backup</span>
+                                    <span class="info-value">Today, 8:30 AM</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">MDM Enrolled</span>
+                                    <span class="info-value" style="color: var(--success)">Yes - Enrolled</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Android Device Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fab fa-android"></i> Android Device</h3>
+                            <span class="badge warning">ADB Mode</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="device-preview">
+                                <div class="phone-icon android">
+                                    <i class="fas fa-mobile-screen-button"></i>
+                                </div>
+                                <div class="device-details">
+                                    <h4>Samsung Galaxy S24</h4>
+                                    <span class="device-model">SM-S921U - 256GB</span>
+                                </div>
+                            </div>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">Android Version</span>
+                                    <span class="info-value">14 (One UI 6.0)</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Battery</span>
+                                    <span class="info-value">92% (Excellent)</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Storage Used</span>
+                                    <span class="info-value">89 GB / 256 GB</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Security Patch</span>
+                                    <span class="info-value">January 2026</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Work Profile</span>
+                                    <span class="info-value" style="color: var(--success)">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Actions -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-tools"></i> Mobile Support Actions</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="action-buttons-vertical">
+                                <button class="btn primary" onclick="mobileAction('enrollMDM')">
+                                    <i class="fas fa-building"></i> Enroll in MDM
+                                </button>
+                                <button class="btn secondary" onclick="mobileAction('configEmail')">
+                                    <i class="fas fa-envelope"></i> Configure Email
+                                </button>
+                                <button class="btn secondary" onclick="mobileAction('installApps')">
+                                    <i class="fas fa-download"></i> Push Required Apps
+                                </button>
+                                <button class="btn secondary" onclick="mobileAction('configWifi')">
+                                    <i class="fas fa-wifi"></i> Setup Campus WiFi
+                                </button>
+                                <button class="btn warning" onclick="mobileAction('wipeDevice')">
+                                    <i class="fas fa-trash"></i> Remote Wipe Device
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Troubleshooting -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-question-circle"></i> Common Mobile Issues</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="issue-list">
+                                <div class="issue-item" onclick="showMobileKB('email-sync')">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>Email not syncing</span>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <div class="issue-item" onclick="showMobileKB('wifi-connect')">
+                                    <i class="fas fa-wifi"></i>
+                                    <span>Can't connect to campus WiFi</span>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <div class="issue-item" onclick="showMobileKB('mfa-setup')">
+                                    <i class="fas fa-shield-halved"></i>
+                                    <span>MFA/Duo setup help</span>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <div class="issue-item" onclick="showMobileKB('vpn-mobile')">
+                                    <i class="fas fa-lock"></i>
+                                    <span>VPN connection issues</span>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- IoT & AV Devices Section -->
+            <section class="content-section" id="iotSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-wifi"></i> IoT & AV Device Management</h2>
+                    <p>Smart devices, displays, and audiovisual equipment</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <!-- Conference Room AV -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-tv"></i> Conference Room Displays</h3>
+                            <button class="card-btn" onclick="refreshIoTDevices()">
+                                <i class="fas fa-sync"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div class="iot-device-list">
+                                <div class="iot-device online">
+                                    <div class="iot-status"></div>
+                                    <div class="iot-info">
+                                        <span class="iot-name">Student Union - Room 302</span>
+                                        <span class="iot-type">Samsung Display 75" + Crestron</span>
+                                    </div>
+                                    <span class="badge success">Online</span>
+                                </div>
+                                <div class="iot-device online">
+                                    <div class="iot-status"></div>
+                                    <div class="iot-info">
+                                        <span class="iot-name">Student Life Office - Main</span>
+                                        <span class="iot-type">LG Display 65" + Logitech Rally</span>
+                                    </div>
+                                    <span class="badge success">Online</span>
+                                </div>
+                                <div class="iot-device offline">
+                                    <div class="iot-status"></div>
+                                    <div class="iot-info">
+                                        <span class="iot-name">Housing Office - Conf A</span>
+                                        <span class="iot-type">Epson Projector + AMX</span>
+                                    </div>
+                                    <span class="badge danger">Offline</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Smart Sensors -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-temperature-half"></i> Environmental Sensors</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="sensor-grid">
+                                <div class="sensor-card">
+                                    <i class="fas fa-temperature-half"></i>
+                                    <span class="sensor-value">72°F</span>
+                                    <span class="sensor-label">Server Room Temp</span>
+                                    <span class="sensor-status good">Normal</span>
+                                </div>
+                                <div class="sensor-card">
+                                    <i class="fas fa-droplet"></i>
+                                    <span class="sensor-value">45%</span>
+                                    <span class="sensor-label">Humidity</span>
+                                    <span class="sensor-status good">Normal</span>
+                                </div>
+                                <div class="sensor-card">
+                                    <i class="fas fa-door-open"></i>
+                                    <span class="sensor-value">Closed</span>
+                                    <span class="sensor-label">Server Room Door</span>
+                                    <span class="sensor-status good">Secure</span>
+                                </div>
+                                <div class="sensor-card">
+                                    <i class="fas fa-bolt"></i>
+                                    <span class="sensor-value">120V</span>
+                                    <span class="sensor-label">UPS Status</span>
+                                    <span class="sensor-status good">On AC</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Network Printers IoT -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-print"></i> Network Print Devices</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="iot-device-list">
+                                <div class="iot-device online">
+                                    <div class="iot-status"></div>
+                                    <div class="iot-info">
+                                        <span class="iot-name">HP-CLJ-StudentLife-01</span>
+                                        <span class="iot-type">HP Color LaserJet Pro MFP</span>
+                                    </div>
+                                    <div class="printer-levels">
+                                        <span class="ink-level cyan" style="--level: 85%"></span>
+                                        <span class="ink-level magenta" style="--level: 72%"></span>
+                                        <span class="ink-level yellow" style="--level: 68%"></span>
+                                        <span class="ink-level black" style="--level: 45%"></span>
+                                    </div>
+                                </div>
+                                <div class="iot-device online">
+                                    <div class="iot-status"></div>
+                                    <div class="iot-info">
+                                        <span class="iot-name">HP-LJ-Housing-02</span>
+                                        <span class="iot-type">HP LaserJet Enterprise</span>
+                                    </div>
+                                    <div class="printer-levels">
+                                        <span class="ink-level black" style="--level: 92%"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- AV Control Panel -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-sliders"></i> AV Quick Controls</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="av-controls">
+                                <button class="av-btn" onclick="avControl('powerOn')">
+                                    <i class="fas fa-power-off"></i>
+                                    <span>Power On All</span>
+                                </button>
+                                <button class="av-btn" onclick="avControl('powerOff')">
+                                    <i class="fas fa-power-off"></i>
+                                    <span>Power Off All</span>
+                                </button>
+                                <button class="av-btn" onclick="avControl('hdmi1')">
+                                    <i class="fas fa-laptop"></i>
+                                    <span>HDMI 1 (Laptop)</span>
+                                </button>
+                                <button class="av-btn" onclick="avControl('wireless')">
+                                    <i class="fas fa-wifi"></i>
+                                    <span>Wireless Display</span>
+                                </button>
+                                <button class="av-btn" onclick="avControl('camera')">
+                                    <i class="fas fa-video"></i>
+                                    <span>Toggle Camera</span>
+                                </button>
+                                <button class="av-btn" onclick="avControl('mute')">
+                                    <i class="fas fa-microphone-slash"></i>
+                                    <span>Mute Room</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Procurement Section -->
+            <section class="content-section" id="procurementSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-cart-shopping"></i> IT Procurement & Vendors</h2>
+                    <p>Hardware ordering, vendor contacts, and purchase tracking</p>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="stats-row" style="margin-bottom: 1.25rem;">
+                    <div class="stat-card mini">
+                        <span class="stat-value">$12,450</span>
+                        <span class="stat-label">Pending Orders</span>
+                    </div>
+                    <div class="stat-card mini">
+                        <span class="stat-value">8</span>
+                        <span class="stat-label">Open POs</span>
+                    </div>
+                    <div class="stat-card mini">
+                        <span class="stat-value">3</span>
+                        <span class="stat-label">Awaiting Delivery</span>
+                    </div>
+                    <div class="stat-card mini">
+                        <span class="stat-value">24</span>
+                        <span class="stat-label">Active Vendors</span>
+                    </div>
+                </div>
+                
+                <div class="cards-grid">
+                    <!-- New Purchase Request -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-plus-circle"></i> New Purchase Request</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Item Description</label>
+                                    <input type="text" id="purchaseItem" placeholder="Dell Latitude 5540 Laptop">
+                                </div>
+                                <div class="form-group">
+                                    <label>Quantity</label>
+                                    <input type="number" id="purchaseQty" value="1" min="1">
+                                </div>
+                                <div class="form-group">
+                                    <label>Vendor</label>
+                                    <select id="purchaseVendor">
+                                        <option value="">Select Vendor</option>
+                                        <option value="dell">Dell Technologies</option>
+                                        <option value="cdw">CDW Government</option>
+                                        <option value="hp">HP Inc.</option>
+                                        <option value="apple">Apple Education</option>
+                                        <option value="lenovo">Lenovo</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Estimated Cost</label>
+                                    <input type="text" id="purchaseCost" placeholder="$1,299.00">
+                                </div>
+                                <div class="form-group full-width">
+                                    <label>Justification</label>
+                                    <textarea id="purchaseJustification" placeholder="New hire starting 2/15, need standard laptop setup..."></textarea>
+                                </div>
+                            </div>
+                            <button class="btn primary" onclick="submitPurchaseRequest()" style="margin-top: 1rem;">
+                                <i class="fas fa-paper-plane"></i> Submit Request
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Vendor Directory -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-building"></i> Vendor Directory</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="vendor-list">
+                                <div class="vendor-item">
+                                    <div class="vendor-logo">D</div>
+                                    <div class="vendor-info">
+                                        <span class="vendor-name">Dell Technologies</span>
+                                        <span class="vendor-contact">Account Rep: Mike Johnson</span>
+                                        <span class="vendor-phone">402-555-0101</span>
+                                    </div>
+                                    <span class="badge success">Preferred</span>
+                                </div>
+                                <div class="vendor-item">
+                                    <div class="vendor-logo">C</div>
+                                    <div class="vendor-info">
+                                        <span class="vendor-name">CDW Government</span>
+                                        <span class="vendor-contact">Account Team</span>
+                                        <span class="vendor-phone">800-555-4239</span>
+                                    </div>
+                                    <span class="badge info">Contract</span>
+                                </div>
+                                <div class="vendor-item">
+                                    <div class="vendor-logo">A</div>
+                                    <div class="vendor-info">
+                                        <span class="vendor-name">Apple Education</span>
+                                        <span class="vendor-contact">Education Sales</span>
+                                        <span class="vendor-phone">800-800-2775</span>
+                                    </div>
+                                    <span class="badge info">Contract</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Orders -->
+                    <div class="card full-width">
+                        <div class="card-header">
+                            <h3><i class="fas fa-clipboard-list"></i> Recent Purchase Orders</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>PO #</th>
+                                            <th>Date</th>
+                                            <th>Item</th>
+                                            <th>Vendor</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>PO-2026-0892</strong></td>
+                                            <td>Jan 25, 2026</td>
+                                            <td>Dell Latitude 5540 (x3)</td>
+                                            <td>Dell Technologies</td>
+                                            <td>$3,897.00</td>
+                                            <td><span class="badge warning">In Transit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>PO-2026-0891</strong></td>
+                                            <td>Jan 23, 2026</td>
+                                            <td>HP LaserJet Toner (x10)</td>
+                                            <td>CDW Government</td>
+                                            <td>$1,250.00</td>
+                                            <td><span class="badge success">Delivered</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>PO-2026-0889</strong></td>
+                                            <td>Jan 20, 2026</td>
+                                            <td>MacBook Pro 14" M3</td>
+                                            <td>Apple Education</td>
+                                            <td>$1,999.00</td>
+                                            <td><span class="badge success">Delivered</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>PO-2026-0887</strong></td>
+                                            <td>Jan 18, 2026</td>
+                                            <td>Logitech Rally Camera</td>
+                                            <td>CDW Government</td>
+                                            <td>$899.00</td>
+                                            <td><span class="badge info">Processing</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experimental Section -->
+            <section class="content-section" id="experimentalSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-flask"></i> Experimental Tools</h2>
+                    <p>Beta features and testing tools</p>
+                    <div class="beta-badge">BETA</div>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card experimental-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-radar"></i> Network Scanner</h3>
+                            <span class="badge beta">Beta</span>
+                        </div>
+                        <div class="card-content">
+                            <p>Scan your local network for connected devices.</p>
+                            <button class="btn primary" onclick="runNetworkScan()">
+                                <i class="fas fa-search"></i> Scan Network
+                            </button>
+                            <div class="scan-results" id="networkScanResults"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="card experimental-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-toggle-on"></i> Feature Toggles</h3>
+                            <span class="badge beta">Beta</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="feature-toggles">
+                                <div class="toggle-item">
+                                    <span>Dark Mode</span>
+                                    <label class="switch">
+                                        <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="toggle-item">
+                                    <span>Auto-refresh (30s)</span>
+                                    <label class="switch">
+                                        <input type="checkbox" id="autoRefreshToggle" onchange="toggleAutoRefresh()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="toggle-item">
+                                    <span>Compact Mode</span>
+                                    <label class="switch">
+                                        <input type="checkbox" id="compactModeToggle" onchange="toggleCompactMode()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Modal Title</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content" id="modalContent"></div>
+            <div class="modal-footer" id="modalFooter"></div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
